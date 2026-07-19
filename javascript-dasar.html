@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Belajar JavaScript Dasar</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #1a1a2e;
+      color: white;
+      padding: 30px;
+      transition: all 0.5s ease;
+    }
+
+    /* Light Mode */
+    body.light-mode {
+      background: #f0f0f0;
+      color: #333;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      color: #00d4ff;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #aaa;
+      margin-bottom: 40px;
+    }
+
+    .nav-links {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .nav-links a {
+      color: #00d4ff;
+      text-decoration: none;
+      padding: 10px 20px;
+      border: 1px solid #00d4ff;
+      border-radius: 25px;
+      margin: 0 10px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      background: #00d4ff;
+      color: #1a1a2e;
+    }
+
+    .section {
+      background: #16213e;
+      border-radius: 15px;
+      padding: 30px;
+      margin: 30px auto;
+      max-width: 800px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    body.light-mode .section {
+      background: white;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .section h2 {
+      color: #00d4ff;
+      margin-bottom: 20px;
+      font-size: 1.8em;
+    }
+
+    .section p {
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+
+    /* BUTTONS */
+    .btn {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      font-size: 1em;
+      font-weight: bold;
+      cursor: pointer;
+      margin: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #00d4ff, #0099cc);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
+    }
+
+    .btn-danger {
+      background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+      color: white;
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, #55efc4, #00b894);
+      color: #333;
+    }
+
+    .btn-warning {
+      background: linear-gradient(135deg, #feca57, #f39c12);
+      color: #333;
+    }
+
+    /* COUNTER DISPLAY */
+    .counter-display {
+      font-size: 4em;
+      text-align: center;
+      margin: 20px 0;
+      color: #00d4ff;
+      font-weight: bold;
+    }
+
+    /* COLOR BOX */
+    .color-box {
+      width: 200px;
+      height: 200px;
+      margin: 20px auto;
+      border-radius: 15px;
+      background: #00d4ff;
+      transition: all 0.5s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+
+    /* TOGGLE SWITCH */
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .toggle-switch {
+      position: relative;
+      width: 60px;
+      height: 30px;
+      background: #555;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .toggle-switch.active {
+      background: #00d4ff;
+    }
+
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      background: white;
+      border-radius: 50%;
+      top: 2px;
+      left: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .toggle-switch.active::after {
+      left: 32px;
+    }
+
+    /* INPUT & FORM */
+    .input-field {
+      padding: 12px;
+      border: 2px solid #00d4ff;
+      border-radius: 8px;
+      background: transparent;
+      color: white;
+      font-size: 1em;
+      width: 100%;
+      max-width: 300px;
+      margin: 10px 0;
+    }
+
+    body.light-mode .input-field {
+      color: #333;
+    }
+
+    .input-field:focus {
+      outline: none;
+      box-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+    }
+
+    /* TODO LIST */
+    .todo-list {
+      list-style: none;
+      margin-top: 20px;
+    }
+
+    .todo-item {
+      background: #0f3460;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 10px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    body.light-mode .todo-item {
+      background: #e0e0e0;
+    }
+
+    .todo-item.completed {
+      text-decoration: line-through;
+      opacity: 0.6;
+    }
+
+    .delete-btn {
+      background: #ff6b6b;
+      color: white;
+      border: none;
+      padding: 5px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .code-example {
+      background: #0a0a1a;
+      padding: 15px;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      color: #00ff88;
+      margin: 15px 0;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🚀 Belajar JavaScript Dasar</h1>
+  <p class="subtitle">JavaScript membuat website jadi INTERAKTIF!</p>
+
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="portofolio.html">Portofolio</a>
+    <a href="animasi-grid.html">Animasi</a>
+  </div>
+
+  <!-- SECTION 1: ALERT -->
+  <div class="section">
+    <h2>1. Alert - Pesan Pop-up</h2>
+    <p>JavaScript bisa menampilkan pesan pop-up ke user.</p>
+    
+    <div class="code-example">
+      alert("Halo, Samuel!");
+    </div>
+
+    <button class="btn btn-primary" onclick="tampilkanAlert()">Klik Saya!</button>
+  </div>
+
+  <!-- SECTION 2: CONSOLE LOG -->
+  <div class="section">
+    <h2>2. Console Log - Debugging</h2>
+    <p>Console log untuk melihat pesan di DevTools (tekan F12).</p>
+    
+    <div class="code-example">
+      console.log("Pesan ini muncul di console");
+    </div>
+
+    <button class="btn btn-primary" onclick="cobaConsoleLog()">Buka Console (F12)</button>
+  </div>
+
+  <!-- SECTION 3: VARIABEL -->
+  <div class="section">
+    <h2>3. Variabel - Menyimpan Data</h2>
+    <p>Variabel seperti "kotak" untuk menyimpan informasi.</p>
+    
+    <div class="code-example">
+      let nama = "Samuel";<br>
+      let umur = 25;<br>
+      console.log(nama, umur);
+    </div>
+
+    <button class="btn btn-primary" onclick="cobaVariabel()">Tampilkan Variabel</button>
+  </div>
+
+  <!-- SECTION 4: COUNTER -->
+  <div class="section">
+    <h2>4. Counter - Penghitung</h2>
+    <p>Buat angka yang bisa ditambah dan dikurangi.</p>
+    
+    <div class="counter-display" id="counter">0</div>
+    
+    <div style="text-align: center;">
+      <button class="btn btn-danger" onclick="kurangiCounter()">- Kurangi</button>
+      <button class="btn btn-warning" onclick="resetCounter()">Reset</button>
+      <button class="btn btn-success" onclick="tambahCounter()">+ Tambah</button>
+    </div>
+  </div>
+
+  <!-- SECTION 5: UBAH WARNA -->
+  <div class="section">
+    <h2>5. Manipulasi DOM - Ubah Warna</h2>
+    <p>JavaScript bisa mengubah style elemen HTML secara langsung.</p>
+    
+    <div class="color-box" id="colorBox">Klik Tombol!</div>
+    
+    <div style="text-align: center;">
+      <button class="btn btn-primary" onclick="ubahWarna('red')">Merah</button>
+      <button class="btn btn-success" onclick="ubahWarna('green')">Hijau</button>
+      <button class="btn btn-warning" onclick="ubahWarna('orange')">Orange</button>
+      <button class="btn btn-primary" onclick="ubahWarnaRandom()">Random</button>
+    </div>
+  </div>
+
+  <!-- SECTION 6: UBAH TEKS -->
+  <div class="section">
+    <h2>6. Manipulasi DOM - Ubah Teks</h2>
+    <p>JavaScript bisa mengubah isi teks elemen HTML.</p>
+    
+    <p id="teksDinamis" style="font-size: 1.5em; text-align: center; margin: 20px 0;">
+      Teks ini akan berubah!
+    </p>
+    
+    <div style="text-align: center;">
+      <button class="btn btn-primary" onclick="ubahTeks('Halo Samuel!')">Ubah ke "Halo"</button>
+      <button class="btn btn-success" onclick="ubahTeks('Selamat Belajar!')">Ubah ke "Selamat"</button>
+      <button class="btn btn-warning" onclick="ubahTeks('JavaScript Keren!')">Ubah ke "Keren"</button>
+    </div>
+  </div>
+
+  <!-- SECTION 7: DARK/LIGHT MODE -->
+  <div class="section">
+    <h2>7. Toggle Dark/Light Mode</h2>
+    <p>Buat fitur ganti tema gelap/terang seperti di aplikasi modern.</p>
+    
+    <div class="toggle-container">
+      <span>🌙 Dark</span>
+      <div class="toggle-switch" id="toggleSwitch" onclick="toggleMode()"></div>
+      <span>☀️ Light</span>
+    </div>
+  </div>
+
+  <!-- SECTION 8: INPUT USER -->
+  <div class="section">
+    <h2>8. Input dari User</h2>
+    <p>Ambil teks yang diketik user dan tampilkan.</p>
+    
+    <div style="text-align: center;">
+      <input type="text" class="input-field" id="inputNama" placeholder="Ketik nama Anda...">
+      <br>
+      <button class="btn btn-primary" onclick="sapaUser()">Sapa Saya!</button>
+      <p id="hasilSapa" style="margin-top: 20px; font-size: 1.3em; color: #00d4ff;"></p>
+    </div>
+  </div>
+
+  <!-- SECTION 9: TODO LIST -->
+  <div class="section">
+    <h2>9. Todo List - Aplikasi Sederhana</h2>
+    <p>Buat daftar tugas yang bisa ditambah dan dihapus.</p>
+    
+    <div style="text-align: center;">
+      <input type="text" class="input-field" id="todoInput" placeholder="Tulis tugas baru...">
+      <br>
+      <button class="btn btn-success" onclick="tambahTodo()">+ Tambah Tugas</button>
+    </div>
+    
+    <ul class="todo-list" id="todoList"></ul>
+  </div>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    // ============================
+    // 1. ALERT
+    // ============================
+    function tampilkanAlert() {
+      alert("Halo Samuel! Ini adalah alert dari JavaScript! 🎉");
+    }
+
+    // ============================
+    // 2. CONSOLE LOG
+    // ============================
+    function cobaConsoleLog() {
+      console.log("✅ JavaScript berhasil dijalankan!");
+      console.log("Nama: Samuel");
+      console.log("Tanggal: " + new Date());
+      alert("Cek Console (tekan F12) untuk lihat pesan!");
+    }
+
+    // ============================
+    // 3. VARIABEL
+    // ============================
+    function cobaVariabel() {
+      let nama = "Samuel";
+      let hobi = "Coding";
+      let umur = 25;
+      
+      alert("Nama: " + nama + "\nHobi: " + hobi + "\nUmur: " + umur);
+    }
+
+    // ============================
+    // 4. COUNTER
+    // ============================
+    let hitungan = 0;
+
+    function tambahCounter() {
+      hitungan++;
+      document.getElementById("counter").innerText = hitungan;
+    }
+
+    function kurangiCounter() {
+      hitungan--;
+      document.getElementById("counter").innerText = hitungan;
+    }
+
+    function resetCounter() {
+      hitungan = 0;
+      document.getElementById("counter").innerText = hitungan;
+    }
+
+    // ============================
+    // 5. UBAH WARNA
+    // ============================
+    function ubahWarna(warna) {
+      document.getElementById("colorBox").style.background = warna;
+      document.getElementById("colorBox").innerText = warna;
+    }
+
+    function ubahWarnaRandom() {
+      const warnaRandom = '#' + Math.floor(Math.random()*16777215).toString(16);
+      document.getElementById("colorBox").style.background = warnaRandom;
+      document.getElementById("colorBox").innerText = warnaRandom;
+    }
+
+    // ============================
+    // 6. UBAH TEKS
+    // ============================
+    function ubahTeks(teksBaru) {
+      document.getElementById("teksDinamis").innerText = teksBaru;
+    }
+
+    // ============================
+    // 7. DARK/LIGHT MODE
+    // ============================
+    function toggleMode() {
+      document.body.classList.toggle("light-mode");
+      document.getElementById("toggleSwitch").classList.toggle("active");
+    }
+
+    // ============================
+    // 8. INPUT USER
+    // ============================
+    function sapaUser() {
+      const nama = document.getElementById("inputNama").value;
+      
+      if (nama === "") {
+        alert("Silakan ketik nama Anda dulu!");
+        return;
+      }
+      
+      document.getElementById("hasilSapa").innerText = "Halo " + nama + "! Selamat belajar JavaScript! 🚀";
+    }
+
+    // ============================
+    // 9. TODO LIST
+    // ============================
+    function tambahTodo() {
+      const input = document.getElementById("todoInput");
+      const teks = input.value.trim();
+      
+      if (teks === "") {
+        alert("Tulis tugas dulu!");
+        return;
+      }
+      
+      const todoList = document.getElementById("todoList");
+      const li = document.createElement("li");
+      li.className = "todo-item";
+      li.innerHTML = `
+        <span onclick="this.parentElement.classList.toggle('completed')" style="cursor: pointer;">
+          ${teks}
+        </span>
+        <button class="delete-btn" onclick="this.parentElement.remove()">Hapus</button>
+      `;
+      
+      todoList.appendChild(li);
+      input.value = "";
+    }
+
+    // Enter key untuk todo
+    document.getElementById("todoInput").addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        tambahTodo();
+      }
+    });
+  </script>
+
+</body>
+</html>
